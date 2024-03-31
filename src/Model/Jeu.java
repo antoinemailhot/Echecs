@@ -11,7 +11,7 @@ public class Jeu {
 
     // Le constructeur par défaut.
     public Jeu() {
-        this.plateau = new Jeu();
+        this.plateau = new Plateau();
         this.tours = new ArrayList<Tours>();
     }
 
@@ -34,6 +34,10 @@ public class Jeu {
      * @return Retourne le déplacement (Tours) effectué.
      */
     public Tours deplacer() {
+
+        // Il faut obtenir le joueur actuel.
+
+        // Ensuite on crée son tours.
         Tours toursActuel = new Tours();
         return toursActuel;
     }

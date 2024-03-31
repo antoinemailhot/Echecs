@@ -3,11 +3,11 @@ package Model;
 public class Joueur {
     // Les attrubuts :
     private String nom;
-    private Enum couleur;
+    private TypeCouleur couleur;
     private int victoires;
 
     // Constructeur.
-    public Joueur(String nom, Enum couleur) {
+    public Joueur(String nom, TypeCouleur couleur) {
         this.nom = nom;
         this.couleur = couleur;
 
@@ -25,7 +25,7 @@ public class Joueur {
      * Prends une couleur.
      * @param couleur
      */
-    public void setCouleur(Enum couleur) {
+    public void setCouleur(TypeCouleur couleur) {
         this.couleur = couleur;
     }
 
@@ -49,7 +49,7 @@ public class Joueur {
      * Obtient la couleur.
      * @return Retourne la couleur.
      */
-    public Enum getCouleur() {
+    public TypeCouleur getCouleur() {
         return couleur;
     }
     

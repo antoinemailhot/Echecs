@@ -3,8 +3,8 @@ package Model;
 public class Plateau {
 
     // Les attributs :
-    private Case[] cases;
-    private Pieces[][] pieces;
+    private CaseEchec[] cases;
+    private Piece[][] pieces;
 
     // Le constructeur.
     public Plateau() {
