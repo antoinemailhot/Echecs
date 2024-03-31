@@ -60,5 +60,9 @@ public class Joueur {
     public int getVictoires() {
         return victoires;
     }
+
+    public String toString() {
+        return this.getNom() + " à la couleur " + this.getCouleur() + " et à " + this.getVictoires() + " victoires à son actif.";
+    }
     
 }
