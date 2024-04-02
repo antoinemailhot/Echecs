@@ -3,10 +3,10 @@ package Model;
 import Model.TypeCouleur.Couleur;
 
 public class Roi extends Piece {
-
+ private TypePiece.Piece typepiece = TypePiece.Piece.Roi;
     // Constructeur
-    public Roi(CaseEchec caseEchec, Model.TypePiece.Piece pion, Couleur couleur) {
-        super(caseEchec, pion, couleur);
+    public Roi(CaseEchec caseEchec, Model.TypePiece.Piece Piece, Couleur couleur) {
+        super(caseEchec, Piece, couleur);
     }
 
     /**

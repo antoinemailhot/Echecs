@@ -3,27 +3,68 @@ package Model;
 public class CaseEchec extends Position {
 
     // Les attributs :
-    private Enum couleur;
+    private Enum<TypeCouleur.Couleur> couleur;
+    private Piece piece;
 
     // Constructeur par défaut.
-    CaseEchec(Enum couleur, int x, int y) {
-        super(x,y);
+    CaseEchec(Enum<TypeCouleur.Couleur> couleur, int x, int y) {
+        super(x, y);
         this.couleur = couleur;
     }
-    
+
     /**
      * Prends une couleur.
+     * 
      * @param couleur La couleur de la case.
      */
-    public void setCouleur(Enum couleur) {
+    public void setCouleur(Enum<TypeCouleur.Couleur> couleur) {
         this.couleur = couleur;
+    }
+
+    /**
+     * accesseur de lobjet piece.
+     */
+    public Piece getPiece() {
+        return this.piece;
+    }
+
+    /**
+     * Placer une piece sur la case.
+     * 
+     * @param piece La piece à placer.
+     */
+    public void placerPiece(Piece piece) {
+        this.piece = piece;
+        if (piece != null) {
+            piece.setCaseEchec(this); // Met à jour la position de la pièce
+        }
+    }
+
+    /**
+     * retire la case de la piece
+     * 
+     */
+    public void enleverPiece() {
+        if (this.piece != null) {
+            this.piece.setCaseEchec(null); // Enlève la pièce de la case
+            this.piece = null;
+        }
+    }
+
+    /**
+     * Boolean qui permet de savoir si une case est occupee
+     * 
+     */
+    public boolean estOccupee() {
+        return this.piece != null;
     }
 
     /**
      * Donne la couleur de la case.
+     * 
      * @return Retourne la couleur de la case.
      */
-    public Enum getCouleur() {
+    public Enum<TypeCouleur.Couleur> getCouleur() {
         return couleur;
     }
 }

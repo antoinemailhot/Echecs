@@ -33,13 +33,13 @@ public class Jeu {
      * Déplacement
      * @return Retourne le déplacement (Tours) effectué.
      */
-    public Tours deplacer() {
+   // public Tours deplacer() {
 
         // Il faut obtenir le joueur actuel.
 
         // Ensuite on crée son tours.
-        Tours toursActuel = new Tours();
-        return toursActuel;
-    }
+   //     Tours toursActuel = new Tours();
+   //     return toursActuel;
+  //  }
 
 }

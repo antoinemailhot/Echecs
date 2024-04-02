@@ -15,9 +15,9 @@ public class Pion extends Piece {
      * Renvoie l'évolution de la pièce lorsqu'elle atteint l'autre côté du jeu.
      * @return Retourne l'évolution de la pièce.
      */
-    public Piece evolution() {
+    //public Piece evolution() {
         
-    }
+    //}
 
     /**
      * Écrit en string le type de la pièce.
