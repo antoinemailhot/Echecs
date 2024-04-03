@@ -15,7 +15,7 @@ public class Pion extends Piece {
      * Renvoie l'évolution de la pièce lorsqu'elle atteint l'autre côté du jeu.
      * @return Retourne l'évolution de la pièce.
      */
-    public Piece promotion() {
+    public void promotion() {
 
         // Obtenir la case du Pion.
         Case caseActuel = null;
@@ -35,12 +35,7 @@ public class Pion extends Piece {
                 || (direction == TypeDirection.Direction.Direction_Origin_Blanc && caseActuel.getY() == 7);
     
         if (casespromotion) {
-            
-
-            return new Reine(TypePiece.Piece.Reine, couleur);
-        } else {
-            // Aucune promotion, retourne l'instance actuelle du pion.
-            return this;
+            caseActuel.placerPiece(new Reine(TypePiece.Piece.Reine, couleur));
         }
     }
     /**
