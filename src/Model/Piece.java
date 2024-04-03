@@ -7,15 +7,13 @@ public class Piece {
     protected TypePiece.Piece type;
     protected TypeCouleur.Couleur couleur;
     protected ArrayList<Coups> coups;
-    protected CaseEchec caseEchec;
     protected boolean deplacer;
 
     // Constructeur.
-    public Piece(CaseEchec caseEchec, Model.TypePiece.Piece pion, TypeCouleur.Couleur couleur) {
+    public Piece(Model.TypePiece.Piece pion, TypeCouleur.Couleur couleur) {
         this.type = pion;
         this.couleur = couleur;
         this.coups = new ArrayList<Coups>();
-        this.caseEchec = caseEchec;
         this.deplacer = false;
     }
 
@@ -41,14 +39,6 @@ public class Piece {
 
     public void setCoups(ArrayList<Coups> coups) {
         this.coups = coups;
-    }
-
-    public CaseEchec getCaseEchec() {
-        return caseEchec;
-    }
-
-    public void setCaseEchec(CaseEchec caseEchec) {
-        this.caseEchec = caseEchec;
     }
 
     public boolean isDeplacer() {

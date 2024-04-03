@@ -15,13 +15,13 @@ public abstract class Coups {
      * Retourne la case du déplacement.
      * @return Retourne la case du déplacement.
      */
-    public abstract CaseEchec deplacement();
+    public abstract Case deplacement();
 
     /**
      * Retourne la case de l'attaque.
      * @return Retourne la case de l'attaque.
      */
-    public abstract CaseEchec attaquer();
+    public abstract Case attaquer();
 
     /**
      * Retourne si la case est dangereuse pour la Piece.

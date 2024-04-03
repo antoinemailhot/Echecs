@@ -5,8 +5,8 @@ import Model.TypeCouleur.Couleur;
 public class Fou extends Piece {
 
     // Constructeur
-    public Fou(CaseEchec caseEchec, Model.TypePiece.Piece Piece, Couleur couleur) {
-        super(caseEchec, Piece, couleur);
+    public Fou(Model.TypePiece.Piece Piece, Couleur couleur) {
+        super(Piece, couleur);
     }
 
     /**

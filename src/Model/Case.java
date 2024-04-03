@@ -1,13 +1,13 @@
 package Model;
 
-public class CaseEchec extends Position {
+public class Case extends Position {
 
     // Les attributs :
     private Enum<TypeCouleur.Couleur> couleur;
     private Piece piece;
 
     // Constructeur par défaut.
-    CaseEchec(Enum<TypeCouleur.Couleur> couleur, int x, int y) {
+    Case(Enum<TypeCouleur.Couleur> couleur, int x, int y) {
         super(x, y);
         this.couleur = couleur;
     }
@@ -36,7 +36,7 @@ public class CaseEchec extends Position {
     public void placerPiece(Piece piece) {
         this.piece = piece;
         if (piece != null) {
-            piece.setCaseEchec(this); // Met à jour la position de la pièce
+            piece.setCase(this); // Met à jour la position de la pièce
         }
     }
 
@@ -46,7 +46,7 @@ public class CaseEchec extends Position {
      */
     public void enleverPiece() {
         if (this.piece != null) {
-            this.piece.setCaseEchec(null); // Enlève la pièce de la case
+            this.piece.setCase(null); // Enlève la pièce de la case
             this.piece = null;
         }
     }

@@ -4,8 +4,8 @@ import Model.TypeCouleur.Couleur;
 
 public class Tour extends Piece {
 
-    public Tour(CaseEchec caseEchec, Model.TypePiece.Piece Piece, Couleur couleur) {
-        super(caseEchec, Piece, couleur);
+    public Tour(Model.TypePiece.Piece Piece, Couleur couleur) {
+        super(Piece, couleur);
     }
 
     /**

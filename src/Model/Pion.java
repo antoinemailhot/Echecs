@@ -6,8 +6,8 @@ public class Pion extends Piece {
     private TypeDirection.Direction direction;
 
     // Constructeur :
-    public Pion(CaseEchec caseEchec, TypeCouleur.Couleur couleur, TypeDirection.Direction direction) {
-        super(caseEchec, TypePiece.Piece.Pion, couleur);
+    public Pion(TypeCouleur.Couleur couleur, TypeDirection.Direction direction) {
+        super(TypePiece.Piece.Pion, couleur);
         this.direction = direction;
     }
     
@@ -25,7 +25,7 @@ public class Pion extends Piece {
         if (casespromotion) {
             
 
-            return new Reine(caseEchec, TypePiece.Piece.Reine, couleur);
+            return new Reine(TypePiece.Piece.Reine, couleur);
         } else {
             // Aucune promotion, retourne l'instance actuelle du pion.
             return this;

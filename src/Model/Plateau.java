@@ -5,8 +5,7 @@ import Model.TypeCouleur.Couleur;
 import Model.TypeDirection.Direction;
 
 public class Plateau {
-    private Piece[][] pieces = new Piece[1][15]; // 2 équipes, 16 pièces chacune
-    private CaseEchec[][] cases = new CaseEchec[7][7];
+    private Case[][] cases = new Case[8][8];
 
     public Plateau() {
 
@@ -14,7 +13,7 @@ public class Plateau {
         initialiserCases();
 
         // Initialiser les pièces pour l'équipe 0
-        initialiserPieces(0, Couleur.Blanc);
+        initialiserPieces(0, Couleur.Blanc);     
 
         // Initialiser les pièces pour l'équipe 1
         initialiserPieces(1, Couleur.Noir);
@@ -26,7 +25,7 @@ public class Plateau {
                 // Alterne les couleurs entre Blanc et Noir
                 Enum<Couleur> couleur = (x + y) % 2 == 0 ? Couleur.Blanc : Couleur.Noir;
                 // Initialise la case avec sa couleur et ses coordonnées (x, y)
-                cases[y][x] = new CaseEchec(couleur, x, y);
+                cases[y][x] = new Case(couleur, x, y);
             }
         }
     }
