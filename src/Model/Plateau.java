@@ -5,7 +5,7 @@ import Model.TypeCouleur.Couleur;
 import Model.TypeDirection.Direction;
 
 public class Plateau {
-    private Case[][] cases = new Case[8][8];
+    public static Case[][] cases = new Case[8][8];
 
     public Plateau() {
 
@@ -54,14 +54,14 @@ public class Plateau {
             cases[colonnesPions][i].placerPiece(new Pion(couleur, direction));
         }
 
-        cases[extremiteEquipe][index++].placerPiece(new Tour(TypePiece.Piece.Tour, Couleur.Noir));
-        cases[extremiteEquipe][index++].placerPiece(new Chevalier(TypePiece.Piece.Chevalier, Couleur.Noir));
-        cases[extremiteEquipe][index++].placerPiece(new Fou(TypePiece.Piece.Fou, Couleur.Noir));
-        cases[extremiteEquipe][index++].placerPiece(new Reine(TypePiece.Piece.Reine, Couleur.Noir));
-        cases[extremiteEquipe][index++].placerPiece(new Roi(TypePiece.Piece.Roi, Couleur.Noir));
-        cases[extremiteEquipe][index++].placerPiece(new Fou(TypePiece.Piece.Fou, Couleur.Noir));
-        cases[extremiteEquipe][index++].placerPiece(new Chevalier(TypePiece.Piece.Chevalier, Couleur.Noir));
-        cases[extremiteEquipe][index].placerPiece(new Tour(TypePiece.Piece.Tour, Couleur.Noir));
+        cases[extremiteEquipe][index++].placerPiece(new Tour(TypePiece.Piece.Tour, couleur));
+        cases[extremiteEquipe][index++].placerPiece(new Chevalier(TypePiece.Piece.Chevalier, couleur));
+        cases[extremiteEquipe][index++].placerPiece(new Fou(TypePiece.Piece.Fou, couleur));
+        cases[extremiteEquipe][index++].placerPiece(new Reine(TypePiece.Piece.Reine, couleur));
+        cases[extremiteEquipe][index++].placerPiece(new Roi(TypePiece.Piece.Roi, couleur));
+        cases[extremiteEquipe][index++].placerPiece(new Fou(TypePiece.Piece.Fou, couleur));
+        cases[extremiteEquipe][index++].placerPiece(new Chevalier(TypePiece.Piece.Chevalier, couleur));
+        cases[extremiteEquipe][index].placerPiece(new Tour(TypePiece.Piece.Tour, couleur));
     }
 }
 
