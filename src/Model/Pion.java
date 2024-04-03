@@ -16,11 +16,14 @@ public class Pion extends Piece {
      * @return Retourne l'évolution de la pièce.
      */
     public Piece promotion() {
+
+        
+
         // Vérifie si le pion est sur la rangée de promotion.
         //  les pions blancs la promotion est en y = 0,
         //  les pions noirs la promotion est en y = 7.
-        boolean casespromotion = (direction == TypeDirection.Direction.Direction_Origin_Noir && caseEchec.getY() == 0)
-                || (direction == TypeDirection.Direction.Direction_Origin_Blanc && caseEchec.getY() == 7);
+        boolean casespromotion = (direction == TypeDirection.Direction.Direction_Origin_Noir && case.getY() == 0)
+                || (direction == TypeDirection.Direction.Direction_Origin_Blanc && case.getY() == 7);
     
         if (casespromotion) {
             
