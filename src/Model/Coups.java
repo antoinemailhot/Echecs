@@ -3,14 +3,16 @@ package Model;
 public abstract class Coups {
     
     // Constructeur.
-    public Coups() {}
+    public Coups(Case case) {
+        
+    }
 
     /**
      * Retourne si le coups est valide. 
      * @return Retourne si le coups est valide. 
      */
     public abstract boolean estValide();
-
+        
     /**
      * Retourne la case du déplacement.
      * @return Retourne la case du déplacement.
