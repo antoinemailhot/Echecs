@@ -35,20 +35,9 @@ public class Case extends Position {
      */
     public void placerPiece(Piece piece) {
         this.piece = piece;
-        if (piece != null) {
+        /*if (piece != null) {
             piece.setCase(this); // Met à jour la position de la pièce
-        }
-    }
-
-    /**
-     * retire la case de la piece
-     * 
-     */
-    public void enleverPiece() {
-        if (this.piece != null) {
-            this.piece.setCase(null); // Enlève la pièce de la case
-            this.piece = null;
-        }
+        }*/
     }
 
     /**
