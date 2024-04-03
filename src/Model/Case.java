@@ -56,4 +56,18 @@ public class Case extends Position {
     public Enum<TypeCouleur.Couleur> getCouleur() {
         return couleur;
     }
+
+    /**
+     * Retourne le y de la case.
+     */
+    public int getY() {
+        return super.getY();
+    }
+
+    /**
+     * Retourne le x de la case.
+     */
+    public int getX() {
+        return super.getX();
+    }
 }
