@@ -1,13 +1,13 @@
 package Model;
 
-public class Case extends Position {
+public class CaseEchec extends Position {
 
     // Les attributs :
     private Enum<TypeCouleur.Couleur> couleur;
     private Piece piece;
 
     // Constructeur par défaut.
-    Case(Enum<TypeCouleur.Couleur> couleur, int x, int y) {
+    public CaseEchec(Enum<TypeCouleur.Couleur> couleur, int x, int y) {
         super(x, y);
         this.couleur = couleur;
     }

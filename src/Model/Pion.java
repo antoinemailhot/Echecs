@@ -4,6 +4,7 @@ public class Pion extends Piece {
 
     // Les attributs:
     private TypeDirection.Direction direction;
+    private boolean estPremierCoup = true;
 
     // Constructeur :
     public Pion(TypeCouleur.Couleur couleur, TypeDirection.Direction direction) {

@@ -5,7 +5,7 @@ import Model.TypeCouleur.Couleur;
 import Model.TypeDirection.Direction;
 
 public class Plateau {
-    public static Case[][] cases = new Case[8][8];
+    public static CaseEchec[][] cases = new CaseEchec[8][8];
 
     public Plateau() {
 
