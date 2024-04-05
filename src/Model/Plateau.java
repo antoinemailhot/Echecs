@@ -22,7 +22,7 @@ public class Plateau {
                 // Alterne les couleurs entre Blanc et Noir
                 Enum<Couleur> couleur = (x + y) % 2 == 0 ? Couleur.Blanc : Couleur.Noir;
                 // Initialise la case avec sa couleur et ses coordonnées (x, y)
-                cases[y][x] = new Case(couleur, x, y);
+                cases[y][x] = new CaseEchec(couleur, x, y);
             }
         }
     }

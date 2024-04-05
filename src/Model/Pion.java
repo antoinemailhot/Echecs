@@ -19,7 +19,7 @@ public class Pion extends Piece {
     public void promotion() {
 
         // Obtenir la case du Pion.
-        Case caseActuel = null;
+        CaseEchec caseActuel = null;
 
         for(int i = 0; i < Plateau.cases.length; i++) {
             for(int j = 0; j < Plateau.cases[i].length; j++) {
@@ -50,6 +50,14 @@ public class Pion extends Piece {
      */
     public TypeDirection.Direction getDirection() {
         return this.direction;
+    }
+
+    /**
+     * Renvoie le premier coups.
+     * @return Retourne le premier coups.
+     */
+    public boolean estPremierCoup() {
+        return this.estPremierCoup;
     }
 
     /**
