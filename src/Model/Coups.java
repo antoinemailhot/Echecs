@@ -267,17 +267,41 @@ public class Coups {
         
     
 
-    private boolean echecEtMat() {
-        // Si toutes les cases sont dangereuses pour le roi.
-        
-        
+    private boolean echecEtMat(TypeCouleur couleurRoi) {        
+        // Si il y a toutes les cases qui sont dangereuse pour le roi.
+        CaseEchec positionroi = trouverPositionRoi(couleurRoi);
+         
+        for (int i=0 ; i < 8; i++){
+            for (int j=0; j < 8; j++){
+
+                Piece piece = Plateau.cases[i][j].getPiece();
+
+                if (piece != null && !piece.getCouleur().equals(couleurRoi)) {
+
+                    ArrayList<Coups> coupsPossibles = piece.getCoups() ;
+                    ArrayList<Coups> coupsPossiblesroi = positionroi.getPiece().getCoups();
+                    for (Coups coup : coupsPossibles) {
+                        if(coupsPossiblesroi.contains(coup)) {
+                            coupsPossiblesroi.remove(coup);
+                        }
+                        
+                    }
+
+                    if(coupsPossiblesroi.size() == 0) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false; // Le roi n'est pas en échec et mat.
     }
 
     /**
      * Trouve la position du roi
      *
-     * @param  couleurRoi    description of parameter
-     * @return              description of return value
+     * @param  couleurRoi Prends la couleur du roi.
+     * @return Retourne la case du roi.
      */
     CaseEchec trouverPositionRoi(TypeCouleur couleurRoi) {
        
@@ -297,8 +321,35 @@ public class Coups {
      * 
      * @return Retourne si la case est dangereuse pour la Piece.
      */
-    public boolean estCaseDangereuse(CaseEchec casePossible) {
-        if (casePossible.getPiece() != null && casePossible.getPiece().getCouleur().equals())
+    public boolean estCaseDangereuse(CaseEchec casePossible, TypeCouleur couleurRoi) {
+        if (casePossible.getPiece() == null) {
+
+
+        // Si il y a toutes les cases qui sont dangereuse pour le roi.
+        CaseEchec positionRoi = trouverPositionRoi(couleurRoi);
+         
+        for (int i=0 ; i < 8; i++){
+            for (int j=0; j < 8; j++){
+
+                Piece piece = Plateau.cases[i][j].getPiece();
+
+                if (piece != null && !piece.getCouleur().equals(couleurRoi)) {
+
+                    ArrayList<Coups> coupsPossibles = piece.getCoups() ;
+                    ArrayList<Coups> coupsPossiblesroi = positionRoi.getPiece().getCoups();
+                    for (Coups coup : coupsPossibles) {
+                        if(coupsPossiblesroi.contains(casePossible[.getX()][.getY()])) {
+                            coupsPossiblesroi.remove(coup);
+                           return true; // 
+                        }
+                        
+                    }
+                }
+            }
+        }
+        }
+
+        return false; // Le roi n'est pas en échec et mat.
     }
 
     /*
