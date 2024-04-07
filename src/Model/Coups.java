@@ -338,8 +338,8 @@ public class Coups {
                     ArrayList<Coups> coupsPossibles = piece.getCoups() ;
                     ArrayList<Coups> coupsPossiblesroi = positionRoi.getPiece().getCoups();
                     for (Coups coup : coupsPossibles) {
-                        if(coupsPossiblesroi.contains(casePossible[.getX()][.getY()])) {
-                            coupsPossiblesroi.remove(coup);
+                        if(coupsPossiblesroi.contains(coup)) {
+                            
                            return true; // 
                         }
                         
@@ -349,7 +349,7 @@ public class Coups {
         }
         }
 
-        return false; // Le roi n'est pas en échec et mat.
+        return false; 
     }
 
     /*
