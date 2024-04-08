@@ -49,7 +49,8 @@ public class JeuView extends JFrame {
     private JLabel scoreLabel; // Affiche les scores des joueurs
     public  static JButton[][] buttonGrid = new JButton[8][8]; // Tableau pour stocker les références des boutons
     private boolean estVisible = false;
-
+    private CaseEchec caseSelectionnee = null;
+    
     public JeuView() {
         InitialiseJeuView();
         this.plateau = new Plateau();
@@ -112,7 +113,7 @@ public class JeuView extends JFrame {
                 CaseEchec caseEchec = Plateau.cases[i][j];
                 JButton bouton = buttonGrid[i][j];
                 if (caseEchec.estOccupee()) {
-                    String nom = "";
+                    
                     ImageIcon iconPionBlanche;
                     ImageIcon icontourBlanche;
                     ImageIcon iconFouBlanche;
@@ -217,8 +218,16 @@ public class JeuView extends JFrame {
     private JButton createButtonForCase(CaseEchec caseEchec, int i, int j) {
         JButton button = new JButton();
         button.addActionListener(new ActionListener() {
+            /**
+             * Va chercher la première case selectionner qui a une Piece.
+             * Va chercher ses coups possible avec getCoupsValides et highligh les possibilités.
+             * Va positioner la pièce a l'endroit selectionner.
+             */
             public void actionPerformed(ActionEvent e) {
-                if (JeuController.getcaSeselectioner() == null) {
+                JButton caseCliqueButton = (JButton) e.getSource(); // Récupère le bouton qui a déclenché l'événement
+                
+                CaseEchec caseEchec = obtenirCaseEchecParButton(caseCliqueButton);
+                if (caseEchec.getPiece() != null) {
                     // Première sélection : la pièce à déplacer
                     caseSelectionnee = caseEchec;
                     mouvementsPossibles = controller.obtenirMouvementsPossibles(caseEchec);
@@ -242,6 +251,21 @@ public class JeuView extends JFrame {
             }
         });
         return button;
+    }
+
+    /**
+     * Retourne la caseEchec correcpondant a la place du bouton.
+     */
+    private CaseEchec obtenirCaseEchecParButton(JButton jButton) {
+        for(int i = 0; i < 8; i++) {
+            for(int j = 0; j < 8; j++) {
+                if(buttonGrid[i][j] == jButton) {
+                    return Plateau.cases[i][j];
+                }
+            }
+        }
+
+        return null;
     }
 }
 
