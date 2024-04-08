@@ -39,8 +39,11 @@ public class Pion extends Piece {
             caseActuel.placerPiece(new Reine(TypePiece.Piece.Reine, couleur));
         }*/
 
-        if(caseActuel.getY() == 0 || caseActuel.getY() == 7) {
-            caseActuel.placerPiece(new Reine(TypePiece.Piece.Reine, couleur));
+        // Verification que caseActuel n est pas null.
+        if(caseActuel != null) {
+            if(caseActuel.getY() == 0 || caseActuel.getY() == 7) {
+                caseActuel.placerPiece(new Reine(TypePiece.Piece.Reine, couleur));
+            }
         }
     }
 
