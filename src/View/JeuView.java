@@ -65,7 +65,7 @@ public class JeuView extends JFrame {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 CaseEchec caseEchec = Plateau.cases[i][j]; // Obtient la case correspondante();
-                JButton bouton = createButtonForCase(caseEchec);
+                JButton bouton = createButtonForCase(caseEchec, i, j);
                 boardPanel.add(bouton);
                 buttonGrid[i][j] = bouton; // Stocke le bouton dans le tableau
               
@@ -87,7 +87,7 @@ public class JeuView extends JFrame {
                 updateBoard(); // Met à jour l'affichage du plateau
             }
         });
-            menuOptions.add(menuItemNewGame);
+        menuOptions.add(menuItemNewGame);
        
 
         // Création du label pour afficher les scores
@@ -132,8 +132,6 @@ public class JeuView extends JFrame {
         }
     }
   
-    
-
     private JButton createButtonForCase(CaseEchec caseEchec, int i, int j) {
         JButton button = new JButton();
         button.addActionListener(new ActionListener() {
@@ -158,12 +156,10 @@ public class JeuView extends JFrame {
                         // Optionnel : Afficher un message d'erreur ou un signal visuel
                     }
                 }
-                jeuView.updateUI();  // Mettez à jour la vue pour refléter les nouveaux états des cases
+                updateBoard();  // Mettez à jour la vue pour refléter les nouveaux états des cases
             }
         });
         return button;
     }
-
-    
-    }
+}
 

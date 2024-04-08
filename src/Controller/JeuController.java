@@ -28,7 +28,7 @@ public class JeuController extends JFrame {
     private Jeu jeu;
     private JeuView jeuView;
     private FenetreNomsJoueurs fenetreNomsJoueurs;
-    private CaseEchec caseSelectionnee;
+    public CaseEchec caseSelectionnee;
     private ArrayList<CaseEchec> mouvementsPossibles;
 
 
@@ -58,12 +58,14 @@ public class JeuController extends JFrame {
     
 
      public CaseEchec getcaSeselectioner(){
-        return this.caseSelectionnee;
+        return caseSelectionnee;
      }
 
+    public CaseEchec setcaSelectionner(CaseEchec caseEchec){
+        caseSelectionnee = caseEchec;
+        return caseSelectionnee;
 
-
-
+    }
 
 
 
