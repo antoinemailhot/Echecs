@@ -113,12 +113,94 @@ public class JeuView extends JFrame {
                 JButton bouton = buttonGrid[i][j];
                 if (caseEchec.estOccupee()) {
                     String nom = "";
+                    ImageIcon iconPionBlanche;
+                    ImageIcon icontourBlanche;
+                    ImageIcon iconFouBlanche;
+                    ImageIcon iconChevalierBlanche;
+                    ImageIcon iconReineBlanche;
+                    ImageIcon iconRoiBlanche;
+                    ImageIcon iconPionNoir;
+                    ImageIcon icontourNoir;
+                    ImageIcon iconFouNoir;
+                    ImageIcon iconChevalierNoir;
+                    ImageIcon iconReineNoir;
+                    ImageIcon iconRoiNoir;
                     if(caseEchec.getPiece().getCouleur() == Jeu.joueurs[0].getCouleur()) {
-                        nom = Jeu.joueurs[0].getNom();
+                       if (caseEchec.getPiece().getType() == Model.TypePiece.Piece.Pion) {
+                        
+                        iconPionBlanche = new ImageIcon("src\\View\\img\\wP.png");
+                        iconPionBlanche.setImage(iconPionBlanche.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
+                        bouton.setIcon(iconPionBlanche);
+                       }
+                       if (caseEchec.getPiece().getType() == Model.TypePiece.Piece.Tour) {
+                        
+                        icontourBlanche = new ImageIcon("src\\View\\img\\wR.png");
+                        icontourBlanche.setImage(icontourBlanche.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
+                        bouton.setIcon(icontourBlanche);
+                       }
+                       if (caseEchec.getPiece().getType() == Model.TypePiece.Piece.Fou) {
+                       
+                        iconFouBlanche = new ImageIcon("src\\View\\img\\wB.png");
+                        iconFouBlanche.setImage(iconFouBlanche.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
+                        bouton.setIcon(iconFouBlanche);
+                       }
+                       if (caseEchec.getPiece().getType() == Model.TypePiece.Piece.Chevalier) {
+                       
+                        iconChevalierBlanche = new ImageIcon("src\\View\\img\\wN.png");
+                        iconChevalierBlanche.setImage(iconChevalierBlanche.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
+                        bouton.setIcon(iconChevalierBlanche);
+                       }
+                       if (caseEchec.getPiece().getType() == Model.TypePiece.Piece.Roi) {
+                        
+                        iconRoiBlanche = new ImageIcon("src\\View\\img\\wK.png");
+                        iconRoiBlanche.setImage(iconRoiBlanche.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
+                        bouton.setIcon(iconRoiBlanche);
+                       }
+                       if (caseEchec.getPiece().getType() == Model.TypePiece.Piece.Reine) {
+                       
+                        iconReineBlanche = new ImageIcon("src\\View\\img\\wQ.png");
+                        iconReineBlanche.setImage(iconReineBlanche.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
+                        bouton.setIcon(iconReineBlanche);
+                       }
                     } else {
-                        nom = Jeu.joueurs[1].getNom();
+                        if (caseEchec.getPiece().getType() == Model.TypePiece.Piece.Pion) {
+                        
+                            iconPionNoir = new ImageIcon("src\\View\\img\\bP.png");
+                            iconPionNoir.setImage(iconPionNoir.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
+                            bouton.setIcon(iconPionNoir);
+                           }
+                           if (caseEchec.getPiece().getType() == Model.TypePiece.Piece.Tour) {
+                            
+                            icontourNoir = new ImageIcon("src\\View\\img\\bR.png");
+                            icontourNoir.setImage(icontourNoir.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
+                            bouton.setIcon(icontourNoir);
+                           }
+                           if (caseEchec.getPiece().getType() == Model.TypePiece.Piece.Fou) {
+                           
+                            iconFouNoir = new ImageIcon("src\\View\\img\\bB.png");
+                            iconFouNoir.setImage(iconFouNoir.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
+                            bouton.setIcon(iconFouNoir);
+                           }
+                           if (caseEchec.getPiece().getType() == Model.TypePiece.Piece.Chevalier) {
+                           
+                            iconChevalierNoir = new ImageIcon("src\\View\\img\\bN.png");
+                            iconChevalierNoir.setImage(iconChevalierNoir.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
+                            bouton.setIcon(iconChevalierNoir);
+                           }
+                           if (caseEchec.getPiece().getType() == Model.TypePiece.Piece.Roi) {
+                            
+                            iconRoiNoir = new ImageIcon("src\\View\\img\\bK.png");
+                            iconRoiNoir.setImage(iconRoiNoir.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
+                            bouton.setIcon(iconRoiNoir);
+                           }
+                           if (caseEchec.getPiece().getType() == Model.TypePiece.Piece.Reine) {
+                           
+                            iconReineNoir = new ImageIcon("src\\View\\img\\bQ.png");
+                            iconReineNoir.setImage(iconReineNoir.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
+                            bouton.setIcon(iconReineNoir);
+                           }
                     }   
-                    bouton.setText(caseEchec.getPiece().toString() + "\n" + nom); // Met à jour avec la nouvelle pièce
+                    //bouton.setText(caseEchec.getPiece().toString() + "\n" + nom); // Met à jour avec la nouvelle pièce
                 } else {
                     bouton.setText(""); // Efface le texte si la case n'est pas occupée
                 }
