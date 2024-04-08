@@ -8,7 +8,12 @@ public class Plateau {
     public static CaseEchec[][] cases = new CaseEchec[8][8];
 
     public Plateau() {
+    }
 
+    /**
+     * Creer une partie.
+     */
+    public void initialiserPartie() {
         // Initialiser les cases du plateau d'échecs
         initialiserCases();
 
@@ -36,24 +41,27 @@ public class Plateau {
 
     private void initialiserPiecesEquipe(TypeCouleur.Couleur couleur) {
         // Index pour le tableau des pièces.
-        int index = 0, extremiteEquipe = 0, colonnesPions = 0;
+        int index = 0, extremiteEquipe = 0, rangeePions = 0;
         Direction direction = null;
 
         if(TypeCouleur.Couleur.Blanc == couleur){
             extremiteEquipe = 0;
-            colonnesPions = 0;
+            rangeePions = 1;
             direction = Direction.Direction_Origin_Blanc;
         } else if(TypeCouleur.Couleur.Noir == couleur) {
             extremiteEquipe = 7;
-            colonnesPions = 6;
+            rangeePions = 6;
             direction = Direction.Direction_Origin_Noir;
         }
 
         for (int i = 0; i < 8; i++) {
             //pieces[extremiteEquipe][index++] = new Pion(cases[1][i], Couleur.Blanc, Direction.Direction_Origin_Blanc);
-            cases[colonnesPions][i].placerPiece(new Pion(couleur, direction));
-        }
-
+            cases[rangeePions][i].placerPiece(new Pion(couleur, direction));
+            
+            }
+        
+    
+    
         cases[extremiteEquipe][index++].placerPiece(new Tour(TypePiece.Piece.Tour, couleur));
         cases[extremiteEquipe][index++].placerPiece(new Chevalier(TypePiece.Piece.Chevalier, couleur));
         cases[extremiteEquipe][index++].placerPiece(new Fou(TypePiece.Piece.Fou, couleur));

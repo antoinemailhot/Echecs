@@ -1,7 +1,10 @@
 package View;
-
 import Model.Jeu;
 import Controller.JeuController;
+import javax.swing.JFrame;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 
 public class MVCSwingEchec {
 
@@ -10,10 +13,17 @@ public class MVCSwingEchec {
         Jeu jeu = new Jeu();
 
         // Instance Views
-        JeuView jeuVue = new JeuView();
+        
+        FenetreNomsJoueurs fenetreNomsJoueurs = new FenetreNomsJoueurs();
 
-        // Instance Controller  
-        JeuController jeuController = new JeuController(jeu, jeuVue);
-    }
-    
+        JeuView jeuVue = new JeuView();
+        
+        JeuController jeuController = new JeuController(jeu, jeuVue, fenetreNomsJoueurs);
+        
+      // Ajouter un écouteur pour la fermeture de la fenêtre
+      jeuController.attachEventHandlers(); // Call attachEventHandlers on the JeuController instance
+
+    // Rendre la fenêtre visible
+    fenetreNomsJoueurs.setVisible(true);
+}
 }

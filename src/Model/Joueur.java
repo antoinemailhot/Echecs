@@ -3,14 +3,14 @@ package Model;
 public class Joueur {
     // Les attrubuts :
     private String nom;
-    private TypeCouleur couleur;
-    private int victoires;
+    private TypeCouleur.Couleur couleur;
+    private int victoires ;
 
     // Constructeur.
-    public Joueur(String nom, TypeCouleur couleur) {
+    public Joueur(String nom, TypeCouleur.Couleur couleur) {
         this.nom = nom;
         this.couleur = couleur;
-
+        this.victoires = 0;
     }
 
     /**
@@ -25,7 +25,7 @@ public class Joueur {
      * Prends une couleur.
      * @param couleur
      */
-    public void setCouleur(TypeCouleur couleur) {
+    public void setCouleur(TypeCouleur.Couleur couleur) {
         this.couleur = couleur;
     }
 
@@ -44,12 +44,12 @@ public class Joueur {
     public String getNom() {
         return nom;
     }
-
+ 
     /**
      * Obtient la couleur.
      * @return Retourne la couleur.
      */
-    public TypeCouleur getCouleur() {
+    public TypeCouleur.Couleur getCouleur() {
         return couleur;
     }
     
