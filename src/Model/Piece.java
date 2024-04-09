@@ -2,7 +2,7 @@ package Model;
 
 import java.util.ArrayList;
 
-public class Piece {
+public abstract class Piece {
     // Les attributs :
     protected TypePiece.Piece type;
     protected TypeCouleur.Couleur couleur;
@@ -67,5 +67,7 @@ public class Piece {
         }
         return null;
     }
+
+    public abstract String toStringComplet();
 
 }

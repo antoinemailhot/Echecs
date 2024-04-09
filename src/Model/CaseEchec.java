@@ -7,8 +7,8 @@ public class CaseEchec extends Position {
     private Piece piece;
 
     // Constructeur par défaut.
-    public CaseEchec(Enum<TypeCouleur.Couleur> couleur, int x, int y) {
-        super(x, y);
+    public CaseEchec(Enum<TypeCouleur.Couleur> couleur, int y, int x) {
+        super(y, x);
         this.couleur = couleur;
     }
 

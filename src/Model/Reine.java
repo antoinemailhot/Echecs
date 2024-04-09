@@ -15,5 +15,9 @@ public class Reine extends Piece {
     public String toString() {
         return super.getType().toString();
     }
+
+    public String toStringComplet() {
+        return this.toString() + super.getCouleur().toString();
+    }
     
 }

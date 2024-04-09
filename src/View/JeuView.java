@@ -1,40 +1,13 @@
-/* package View;
-import javax.swing.JFrame;
-
-
-public class JeuView extends JFrame {
-    private int sourisX, sourisY; // Position de la souris
-
-    public String joueur1Nom;
-    public String joueur2Nom;
-    public String score1;
-    public String score2;
-    
-
-    public JeuView() {
-        // Définition du titre.
-        setTitle("Échec");
-        // Définition de l'action de sortie.
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // Définition de la taille par défaut de la fenêtre.
-        setSize(700,700);
-        // Définition dela visibilité.
-        setVisible(true);
-        // Mets la fenetre au centre de l ecran.
-        setLocationRelativeTo(null);
-        
-        
-        
-        
-    }
-
-} */
 package View;
 import Model.Plateau;
+import Model.TypePiece;
 import Model.CaseEchec;
 import Model.Coups;
 import Model.Jeu;
+import Model.Pion;
+
 import javax.swing.*;
+import java.io.File;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -64,7 +37,7 @@ public class JeuView extends JFrame {
         JPanel boardPanel = new JPanel(new GridLayout(8, 8)); // Panneau pour l'échiquier
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                CaseEchec caseEchec = Plateau.cases[i][j]; // Obtient la case correspondante();
+                CaseEchec caseEchec = Plateau.cases[j][i]; // Obtient la case correspondante();
                 JButton bouton = createButtonForCase(caseEchec, i, j);
                 boardPanel.add(bouton);
                 buttonGrid[i][j] = bouton; // Stocke le bouton dans le tableau
@@ -106,120 +79,51 @@ public class JeuView extends JFrame {
         this.repaint();
     }
 
+
+
     public void updateBoard() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 CaseEchec caseEchec = Plateau.cases[i][j];
                 JButton bouton = buttonGrid[i][j];
-                if (caseEchec.estOccupee()) {
-                    
-                    ImageIcon iconPionBlanche;
-                    ImageIcon icontourBlanche;
-                    ImageIcon iconFouBlanche;
-                    ImageIcon iconChevalierBlanche;
-                    ImageIcon iconReineBlanche;
-                    ImageIcon iconRoiBlanche;
-                    ImageIcon iconPionNoir;
-                    ImageIcon icontourNoir;
-                    ImageIcon iconFouNoir;
-                    ImageIcon iconChevalierNoir;
-                    ImageIcon iconReineNoir;
-                    ImageIcon iconRoiNoir;
-                    if(caseEchec.getPiece().getCouleur() == Jeu.joueurs[0].getCouleur()) {
-                       if (caseEchec.getPiece().getType() == Model.TypePiece.Piece.Pion) {
-                        
-                        iconPionBlanche = new ImageIcon("src\\View\\img\\wP.png");
-                        iconPionBlanche.setImage(iconPionBlanche.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
-                        bouton.setIcon(iconPionBlanche);
-                       }
-                       if (caseEchec.getPiece().getType() == Model.TypePiece.Piece.Tour) {
-                        
-                        icontourBlanche = new ImageIcon("src\\View\\img\\wR.png");
-                        icontourBlanche.setImage(icontourBlanche.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
-                        bouton.setIcon(icontourBlanche);
-                       }
-                       if (caseEchec.getPiece().getType() == Model.TypePiece.Piece.Fou) {
-                       
-                        iconFouBlanche = new ImageIcon("src\\View\\img\\wB.png");
-                        iconFouBlanche.setImage(iconFouBlanche.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
-                        bouton.setIcon(iconFouBlanche);
-                       }
-                       if (caseEchec.getPiece().getType() == Model.TypePiece.Piece.Chevalier) {
-                       
-                        iconChevalierBlanche = new ImageIcon("src\\View\\img\\wN.png");
-                        iconChevalierBlanche.setImage(iconChevalierBlanche.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
-                        bouton.setIcon(iconChevalierBlanche);
-                       }
-                       if (caseEchec.getPiece().getType() == Model.TypePiece.Piece.Roi) {
-                        
-                        iconRoiBlanche = new ImageIcon("src\\View\\img\\wK.png");
-                        iconRoiBlanche.setImage(iconRoiBlanche.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
-                        bouton.setIcon(iconRoiBlanche);
-                       }
-                       if (caseEchec.getPiece().getType() == Model.TypePiece.Piece.Reine) {
-                       
-                        iconReineBlanche = new ImageIcon("src\\View\\img\\wQ.png");
-                        iconReineBlanche.setImage(iconReineBlanche.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
-                        bouton.setIcon(iconReineBlanche);
-                       }
-                    } else {
-                        if (caseEchec.getPiece().getType() == Model.TypePiece.Piece.Pion) {
-                        
-                            iconPionNoir = new ImageIcon("src\\View\\img\\bP.png");
-                            iconPionNoir.setImage(iconPionNoir.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
-                            bouton.setIcon(iconPionNoir);
-                           }
-                           if (caseEchec.getPiece().getType() == Model.TypePiece.Piece.Tour) {
-                            
-                            icontourNoir = new ImageIcon("src\\View\\img\\bR.png");
-                            icontourNoir.setImage(icontourNoir.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
-                            bouton.setIcon(icontourNoir);
-                           }
-                           if (caseEchec.getPiece().getType() == Model.TypePiece.Piece.Fou) {
-                           
-                            iconFouNoir = new ImageIcon("src\\View\\img\\bB.png");
-                            iconFouNoir.setImage(iconFouNoir.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
-                            bouton.setIcon(iconFouNoir);
-                           }
-                           if (caseEchec.getPiece().getType() == Model.TypePiece.Piece.Chevalier) {
-                           
-                            iconChevalierNoir = new ImageIcon("src\\View\\img\\bN.png");
-                            iconChevalierNoir.setImage(iconChevalierNoir.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
-                            bouton.setIcon(iconChevalierNoir);
-                           }
-                           if (caseEchec.getPiece().getType() == Model.TypePiece.Piece.Roi) {
-                            
-                            iconRoiNoir = new ImageIcon("src\\View\\img\\bK.png");
-                            iconRoiNoir.setImage(iconRoiNoir.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
-                            bouton.setIcon(iconRoiNoir);
-                           }
-                           if (caseEchec.getPiece().getType() == Model.TypePiece.Piece.Reine) {
-                           
-                            iconReineNoir = new ImageIcon("src\\View\\img\\bQ.png");
-                            iconReineNoir.setImage(iconReineNoir.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
-                            bouton.setIcon(iconReineNoir);
-                           }
-                    }   
-                    //bouton.setText(caseEchec.getPiece().toString() + "\n" + nom); // Met à jour avec la nouvelle pièce
-                } else {
-                    bouton.setText(""); // Efface le texte si la case n'est pas occupée
-                }
+                updateButtonIcon(bouton, caseEchec);
                 // Met à jour la couleur de fond en fonction du joueur ou d'une sélection
-                if (caseSelectionnee == null) {
-                    clearHighlights();
-                } else {
-                    highlightMouvementsPossibles();
-                    
-                }
-                    repaint(); 
-                    revalidate();
-                    
+                updateButtonBackground(bouton, i, j);
             }
         }
-
-        }
-        
+        repaint();
+        revalidate();
+    }
     
+
+private void updateButtonIcon(JButton bouton, CaseEchec caseEchec) {
+    if (caseEchec.estOccupee()) {
+        
+        // Building the path using File.separator to ensure compatibility across OSes
+        String iconName = caseEchec.getPiece().toStringComplet() + ".png";
+        String imagePath = "src" + File.separator + "View" + File.separator + "img" + File.separator + iconName;
+        ImageIcon icon = new ImageIcon(imagePath);
+        icon.setImage(icon.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
+        bouton.setIcon(icon);
+       // System.out.println(imagePath);
+    } else {
+        bouton.setIcon(null); // Clears the icon if the square is unoccupied
+        bouton.setText(""); // Optionally clear any text
+
+    }
+}
+
+    private void updateButtonBackground(JButton bouton, int row, int col) {
+        if (caseSelectionnee == null) {
+            clearHighlights();
+        } else {
+            highlightMouvementsPossibles();
+        }
+        Color bgColor = (row + col) % 2 == 0 ? Color.LIGHT_GRAY : Color.DARK_GRAY;
+        bouton.setBackground(bgColor);
+    }
+    
+
   
     private JButton createButtonForCase(CaseEchec caseEchec, int i, int j) {
         JButton button = new JButton();
@@ -235,19 +139,34 @@ public class JeuView extends JFrame {
                 CaseEchec caseEchec = obtenirCaseEchecParButton(caseCliqueButton);
                 if (caseEchec.getPiece() != null && caseSelectionnee == null) {
                     // Première sélection : la pièce à déplacer
+
                     caseSelectionnee = caseEchec;
                     for(Coups c: caseEchec.getPiece().getCoups()) {
-                        listeCasesPossible.add(c.getCaseEchec());
-                    }
-
+                        
+                    
+                    if(caseSelectionnee.getPiece().getType() == TypePiece.Piece.Roi && c.estEchec((caseEchec.getPiece().getCouleur()))) {{
+                           
+                        break;
+                     }
                    
+                    }
+                    listeCasesPossible.add(c.getCaseEchec());
+                }
                     
                 } else {
                     // Deuxième sélection : la destination
 
                     if (listeCasesPossible.contains(caseEchec)) {
                         caseSelectionnee.deplacerPiece(caseEchec);
+                       if(caseEchec.getPiece().getType() == TypePiece.Piece.Pion) {
+                            Pion pion = (Pion)caseEchec.getPiece();
+                            pion.promotion(); 
+                       }
+
+                       
+                        
                         updateBoard();
+                        
                     }
 
                     caseSelectionnee = null;
@@ -260,6 +179,7 @@ public class JeuView extends JFrame {
                 updateBoard();  // Mettez à jour la vue pour refléter les nouveaux états des cases
             }
         });
+    
         return button;
     }
 
@@ -277,14 +197,15 @@ public class JeuView extends JFrame {
 
         return null;
     }
+
+       
+
     public void highlightMouvementsPossibles(){
 
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (listeCasesPossible.contains(Plateau.cases[i][j])) {
                     buttonGrid[i][j].setBackground(Color.GREEN);
-                    buttonGrid[i][j].repaint();
-                    revalidate();
                 }
             }
         }
@@ -300,8 +221,6 @@ public class JeuView extends JFrame {
                 }
             }
         }
-        this.repaint();
-        revalidate();
     }
 }
 

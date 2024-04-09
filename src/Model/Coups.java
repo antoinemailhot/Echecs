@@ -20,38 +20,52 @@ public class Coups {
         int y;
 
         ArrayList<Coups> coupsValides = new ArrayList<Coups>();
-
+ /*     (0,1) (1,1) (2,1) (3,1) (4,1) (5,1) (6,1) (7,1)   y = 1, row 2
+        (0,2) (1,2) (2,2) (3,2) (4,2) (5,2) (6,2) (7,2)   y = 2, row 3
+        (0,3) (1,3) (2,3) (3,3) (4,3) (5,3) (6,3) (7,3)   y = 3, row 4
+        (0,4) (1,4) (2,4) (3,4) (4,4) (5,4) (6,4) (7,4)   y = 4, row 5
+        (0,5) (1,5) (2,5) (3,5) (4,5) (5,5) (6,5) (7,5)   y = 5, row 6
+        (0,6) (1,6) (2,6) (3,6) (4,6) (5,6) (6,6) (7,6)   y = 6, row 7
+        (0,7) (1,7) (2,7) (3,7) (4,7) (5,7) (6,7) (7,7)   y = 7, row 8 */
         switch (typepiece) {
             case Pion:
-                int directionPion = this.caseEchec.getPiece().getCouleur() == Jeu.joueurs[0].getCouleur() ? -1 : 1;
-                // Mouvement d'une case en avant si elle n'est pas occupée
-                x = this.caseEchec.getX() + directionPion;
-                y = this.caseEchec.getY();
-                if (x >= 0 && x < 8) {
-                    CaseEchec caseEnAvant = Plateau.cases[x][y];
-                    if (!caseEnAvant.estOccupee()) {
-                        coupsValides.add(new Coups(caseEnAvant));
-                        // Mouvement initial de deux cases
-                        if ((directionPion == -1 && this.caseEchec.getX() == 6) || (directionPion == 1 && this.caseEchec.getX() == 1)) {
-                            CaseEchec caseDeuxAvant = Plateau.cases[x + directionPion][y];
-                            if (!caseDeuxAvant.estOccupee()) {
-                                coupsValides.add(new Coups(caseDeuxAvant));
-                            }
-                        }
+    // Déterminer la direction du mouvement du pion basé sur sa couleur
+    int directionPion = this.caseEchec.getPiece().getCouleur() == Jeu.joueurs[0].getCouleur() ? 1 : -1;  // Supposons que Jeu.joueurs[0] est le joueur avec les blancs en bas
+
+    x = this.caseEchec.getX();  // Colonne
+    y = this.caseEchec.getY() + directionPion;  // Ligne, déplacement vertical
+
+    // Mouvement d'une case vers l'avant si elle n'est pas occupée
+    if (y >= 0 && y < 8) {
+        CaseEchec caseEnAvant = Plateau.cases[y][x];
+        if (!caseEnAvant.estOccupee()) {
+            coupsValides.add(new Coups(caseEnAvant));
+
+            // Mouvement de deux cases depuis la position de départ (pour le premier mouvement du pion uniquement)
+            if ((directionPion == -1 && this.caseEchec.getY() == 6) || (directionPion == 1 && this.caseEchec.getY() == 1)) {
+                int yDeuxCases = y + directionPion;  // Deuxième case en avant
+                if (yDeuxCases >= 0 && yDeuxCases < 8) {
+                    CaseEchec caseDeuxAvant = Plateau.cases[yDeuxCases][x];
+                    if (!caseDeuxAvant.estOccupee()) {
+                        coupsValides.add(new Coups(caseDeuxAvant));
                     }
                 }
-                // Captures diagonales
-                int[] dx = {-1, 1};
-                for (int d : dx) {
-                    int nx = x;
-                    int ny = y + d;
-                    if (nx >= 0 && nx < 8 && ny >= 0 && ny < 8) {
-                        CaseEchec caseCapture = Plateau.cases[nx][ny];
-                        if (caseCapture.estOccupee() && caseCapture.getPiece().getCouleur() != this.caseEchec.getPiece().getCouleur()) {
-                            coupsValides.add(new Coups(caseCapture));
-                        }
-                    }
-                }
+            }
+        }
+    }
+
+    // Captures diagonales pour le pion
+    int[] dx = {-1, 1};  // Capture à gauche et à droite
+    for (int d : dx) {
+        int nx = x + d;
+        int ny = y;  // Utilisez 'y' déjà calculé pour la hauteur de la rangée
+        if (nx >= 0 && nx < 8 && ny >= 0 && ny < 8) {
+            CaseEchec caseCapture = Plateau.cases[ny][nx];
+            if (caseCapture.estOccupee() && caseCapture.getPiece().getCouleur() != this.caseEchec.getPiece().getCouleur()) {
+                coupsValides.add(new Coups(caseCapture));
+            }
+        }
+    }
     break;
 
             case Tour:
@@ -71,7 +85,7 @@ public class Coups {
                         if (x < 0 || x >= 8 || y < 0 || y >= 8)
                             break;
 
-                        CaseEchec caseDestination = Plateau.cases[x][y];
+                        CaseEchec caseDestination = Plateau.cases[y][x];
 
                         if (caseDestination.estOccupee()) {
                             // Vérifier si la pièce sur la caseDestination est une pièce adverse
@@ -95,14 +109,14 @@ public class Coups {
                     y = this.caseEchec.getY();
 
                     while (true) {
-                        x += directionFou[0];
-                        y += directionFou[1];
+                        x += directionFou[1];
+                        y += directionFou[0];
 
                         // Vérifier si la nouvelle position est sur le plateau
                         if (x < 0 || x >= 8 || y < 0 || y >= 8)
                             break; // Sortie du plateau
 
-                        CaseEchec caseDestination = Plateau.cases[x][y];
+                        CaseEchec caseDestination = Plateau.cases[y][x];
                         if (caseDestination.estOccupee()) {
                             // Vérifier si la pièce sur la caseDestination est une pièce adverse
                             if (!caseDestination.getPiece().getCouleur()
@@ -129,12 +143,12 @@ public class Coups {
                         { 1, 2 } };
 
                 for (int[] mouvement : mouvements) {
-                    x = this.caseEchec.getX() + mouvement[0];
-                    y = this.caseEchec.getY() + mouvement[1];
+                    x = this.caseEchec.getX() + mouvement[1];
+                    y = this.caseEchec.getY() + mouvement[0];
 
                     // Vérifier si la nouvelle position est sur le plateau
                     if (x >= 0 && x < 8 && y >= 0 && y < 8) {
-                        CaseEchec caseDestination = Plateau.cases[x][y];
+                        CaseEchec caseDestination = Plateau.cases[y][x];
 
                         // Si la caseDestination n'est pas occupée ou est occupée par une pièce adverse,
                         // ajouter le coup
@@ -157,14 +171,14 @@ public class Coups {
                     y = this.caseEchec.getY();
 
                     while (true) {
-                        x += direction[0];
-                        y += direction[1];
+                        x += direction[1];
+                        y += direction[0];
 
                         // Vérifier si la nouvelle position est sur le plateau
                         if (x < 0 || x >= 8 || y < 0 || y >= 8)
                             break;
 
-                        CaseEchec caseDestination = Plateau.cases[x][y];
+                        CaseEchec caseDestination = Plateau.cases[y][x];
 
                         if (caseDestination.estOccupee()) {
                             // Vérifier si la pièce sur la caseDestination est une pièce adverse
@@ -190,12 +204,12 @@ public class Coups {
                 };
 
                 for (int[] direction : directionsRoi) {
-                    x = this.caseEchec.getX() + direction[0];
-                    y = this.caseEchec.getY() + direction[1];
+                    x = this.caseEchec.getX() + direction[1];
+                    y = this.caseEchec.getY() + direction[0];
 
                     // Vérifier si la nouvelle position est sur le plateau
                     if (x >= 0 && x < 8 && y >= 0 && y < 8) {
-                        CaseEchec caseDestination = Plateau.cases[x][y];
+                        CaseEchec caseDestination = Plateau.cases[y][x];
 
                         // Vérifier si la case est occupée par une pièce alliée
                         if (!caseDestination.estOccupee() || !caseDestination.getPiece().getCouleur()
@@ -217,34 +231,44 @@ public class Coups {
      * 
      * @return Retourne si le coups est valide.
      */
-    private boolean echec(TypeCouleur couleurRoi) {
+    public boolean estEchec(TypeCouleur.Couleur couleurRoi) {
         // Si il y a au moins 1 case dangereuse pour le roi.
+        Boolean echec = false;
        CaseEchec positionroi = trouverPositionRoi(couleurRoi);
+       ArrayList<Coups> coupsPossibles  = new ArrayList<Coups>();
        for (int i=0 ; i < 8; i++){
         for (int j=0; j < 8; j++){
 
-            Piece piece = Plateau.cases[i][j].getPiece();
+            Piece piece = Plateau.cases[j][i].getPiece();
 
             if (piece != null && !piece.getCouleur().equals(couleurRoi)) {
 
-                ArrayList<Coups> coupsPossibles = piece.getCoups() ;
+                coupsPossibles = piece.getCoups() ;
 
-                for (Coups coup : coupsPossibles) {
-                    if (coup.getCaseEchec().equals(positionroi)) {
-                        return true; // Le roi est en échec
-                    }
-                    
-                }
+                
             }
+
+
+           
+
+
+
         }
     }
-    return false; // Le roi n'est pas en échec
+    for (Coups coup : coupsPossibles) {
+        if (coup.getCaseEchec().equals(positionroi)) {
+            echec = true; // Le roi est en échec
+        }
+        
+    }
+
+    return echec; // Le roi n'est pas en échec
    } 
        
         
     
 
-    private boolean echecEtMat(TypeCouleur couleurRoi) {        
+    public boolean echecEtMat(TypeCouleur.Couleur couleurRoi ) {        
         // Si il y a toutes les cases qui sont dangereuse pour le roi.
         CaseEchec positionroi = trouverPositionRoi(couleurRoi);
          
@@ -280,7 +304,7 @@ public class Coups {
      * @param  couleurRoi Prends la couleur du roi.
      * @return Retourne la case du roi.
      */
-    CaseEchec trouverPositionRoi(TypeCouleur couleurRoi) {
+    CaseEchec trouverPositionRoi(TypeCouleur.Couleur couleurRoi) {
        
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -298,7 +322,7 @@ public class Coups {
      * 
      * @return Retourne si la case est dangereuse pour la Piece.
      */
-    public boolean estCaseDangereuse(CaseEchec casePossible, TypeCouleur couleurRoi) {
+    public boolean estCaseDangereuse(CaseEchec casePossible, TypeCouleur.Couleur couleurRoi) {
         if (casePossible.getPiece() == null) {
 
 

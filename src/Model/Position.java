@@ -6,7 +6,7 @@ public class Position {
     private int y;
 
     // Le constructeur par défaut.
-    Position(int x, int y) {
+    Position(int y, int x) {
         this.x = x;
         this.y = y;
     }

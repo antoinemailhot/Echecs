@@ -29,20 +29,10 @@ public class Pion extends Piece {
             }
         }
 
-        // Vérifie si le pion est sur la rangée de promotion.
-        //  les pions blancs la promotion est en y = 0,
-        //  les pions noirs la promotion est en y = 7.
-        /*boolean casespromotion = (direction == TypeDirection.Direction.Direction_Origin_Noir &&  caseActuel.getY() == 0)
-                || (direction == TypeDirection.Direction.Direction_Origin_Blanc && caseActuel.getY() == 7);
-    
-        if (casespromotion) {
-            caseActuel.placerPiece(new Reine(TypePiece.Piece.Reine, couleur));
-        }*/
-
         // Verification que caseActuel n est pas null.
         if(caseActuel != null) {
             if(caseActuel.getY() == 0 || caseActuel.getY() == 7) {
-                caseActuel.placerPiece(new Reine(TypePiece.Piece.Reine, couleur));
+                caseActuel.placerPiece(new Reine(TypePiece.Piece.Reine, this.couleur));
             }
         }
     }
@@ -68,5 +58,12 @@ public class Pion extends Piece {
      */
     public String toString() {
         return super.getType().toString();
+    }
+
+    /**
+     * Écrit en string le type de la pièce et sa couleur.
+     */
+    public String toStringComplet() {
+        return this.toString() + super.getCouleur().toString();
     }
 }
