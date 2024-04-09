@@ -143,13 +143,6 @@ private void updateButtonIcon(JButton bouton, CaseEchec caseEchec) {
                     caseSelectionnee = caseEchec;
                     for(Coups c: caseEchec.getPiece().getCoups()) {
                         
-                    
-                    if(caseSelectionnee.getPiece().getType() == TypePiece.Piece.Roi && c.estEchec((caseEchec.getPiece().getCouleur()))) {{
-                           
-                        break;
-                     }
-                   
-                    }
                     listeCasesPossible.add(c.getCaseEchec());
                 }
                     

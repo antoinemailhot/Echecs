@@ -213,7 +213,7 @@ public class Coups {
 
                         // Vérifier si la case est occupée par une pièce alliée
                         if (!caseDestination.estOccupee() || !caseDestination.getPiece().getCouleur()
-                                .equals(this.caseEchec.getPiece().getCouleur())) {
+                                .equals(this.caseEchec.getPiece().getCouleur()) || !estEchec(this.caseEchec.getPiece().getCouleur())) {
 
                             coupsValides.add(new Coups(caseDestination));
                         }
