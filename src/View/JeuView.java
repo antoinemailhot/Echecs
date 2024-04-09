@@ -30,16 +30,11 @@ public class JeuView extends JFrame {
 
 } */
 package View;
-import Model.Joueur;
 import Model.Plateau;
 import Model.CaseEchec;
 import Model.Coups;
-import Model.Piece;
 import Model.Jeu;
-import Model.TypeCouleur.Couleur;
 import javax.swing.*;
-
-import Controller.JeuController;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -111,7 +106,7 @@ public class JeuView extends JFrame {
         this.repaint();
     }
 
-    public static void updateBoard() {
+    public void updateBoard() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 CaseEchec caseEchec = Plateau.cases[i][j];
@@ -210,14 +205,21 @@ public class JeuView extends JFrame {
                     bouton.setText(""); // Efface le texte si la case n'est pas occupée
                 }
                 // Met à jour la couleur de fond en fonction du joueur ou d'une sélection
-                if ((i + j) % 2 == 0) {
-                    bouton.setBackground(Color.LIGHT_GRAY);
+                if (caseSelectionnee == null) {
+                    clearHighlights();
                 } else {
-                    bouton.setBackground(Color.DARK_GRAY);
+                    highlightMouvementsPossibles();
+                    
                 }
+                    repaint(); 
+                    revalidate();
+                    
             }
         }
-    }
+
+        }
+        
+    
   
     private JButton createButtonForCase(CaseEchec caseEchec, int i, int j) {
         JButton button = new JButton();
@@ -238,7 +240,7 @@ public class JeuView extends JFrame {
                         listeCasesPossible.add(c.getCaseEchec());
                     }
 
-                    highlightMouvementsPossibles();
+                   
                     
                 } else {
                     // Deuxième sélection : la destination
@@ -246,18 +248,14 @@ public class JeuView extends JFrame {
                     if (listeCasesPossible.contains(caseEchec)) {
                         caseEchec.placerPiece(caseSelectionnee.getPiece());
                         caseSelectionnee.placerPiece(null);
-                        clearHighlights();
-                        
-                        listeCasesPossible.clear();
-                    } else {
-                        // Si le clic n'est pas valide, réinitialisez la sélection ou affichez un message
-                        clearHighlights();
-                        caseSelectionnee = null;
-                        listeCasesPossible = null;
-                        // Optionnel : Afficher un message d'erreur ou un signal visuel
+                        updateBoard();
                     }
 
+                    caseSelectionnee = null;
                     
+                    listeCasesPossible = new ArrayList<CaseEchec>();
+                    revalidate();
+                    repaint(); 
 
                 }
                 updateBoard();  // Mettez à jour la vue pour refléter les nouveaux états des cases
@@ -286,6 +284,8 @@ public class JeuView extends JFrame {
             for (int j = 0; j < 8; j++) {
                 if (listeCasesPossible.contains(Plateau.cases[i][j])) {
                     buttonGrid[i][j].setBackground(Color.GREEN);
+                    buttonGrid[i][j].repaint();
+                    revalidate();
                 }
             }
         }
@@ -301,7 +301,8 @@ public class JeuView extends JFrame {
                 }
             }
         }
-       
+        this.repaint();
+        revalidate();
     }
 }
 

@@ -2,8 +2,6 @@ package Model;
 
 import java.util.ArrayList;
 
-import javax.sound.sampled.AudioFileFormat.Type;
-
 public class Coups {
     private CaseEchec caseEchec;
     private TypePiece.Piece typepiece;
@@ -18,73 +16,52 @@ public class Coups {
     }
 
     public ArrayList<Coups> getCoupsValides() {
+        int x;
+        int y;
 
         ArrayList<Coups> coupsValides = new ArrayList<Coups>();
 
         switch (typepiece) {
             case Pion:
-                // Peut avancer de 1 case si elle n'est pas bloqué par l'ennemi.
-                Pion p = (Pion) caseEchec.getPiece();
-                CaseEchec caseSuivante;
-                if (p.getDirection() == TypeDirection.Direction.Direction_Origin_Blanc) {
-                    caseSuivante = Plateau.cases[caseEchec.getX()][caseEchec.getY() + 1];
-                } else {
-                    caseSuivante = Plateau.cases[caseEchec.getX()][caseEchec.getY() - 1];
-                }
-
-                // Si la pieces suivante est vide alors on l'ajoute comme coups valide.
-                if (caseSuivante.getPiece() == null) {
-                    coupsValides.add(new Coups(caseSuivante));
-                }
-
-                // Peut avancer de 2 case si c'est son premier tours.
-                if (p.estPremierCoup()) {
-                    if (p.getDirection() == TypeDirection.Direction.Direction_Origin_Blanc) {
-                        caseSuivante = Plateau.cases[caseEchec.getX()][caseEchec.getY() + 2];
-                    } else {
-                        caseSuivante = Plateau.cases[caseEchec.getX()][caseEchec.getY() - 2];
-                    }
-
-                    coupsValides.add(new Coups(caseSuivante));
-                }
-
-                // Peut avancer de 1 case en diagonale s'il y a un ennemi en diagonale de 1
-                // case.
-                if (p.getDirection() == TypeDirection.Direction.Direction_Origin_Blanc) {
-                    // Les blancs
-                    if (Plateau.cases[caseEchec.getX() + 1][caseEchec.getY() + 1].getPiece() != null &&
-                            Plateau.cases[caseEchec.getX() + 1][caseEchec.getY() + 1]
-                                    .getPiece().couleur == TypeCouleur.Couleur.Noir) {
-                        coupsValides.add(new Coups(Plateau.cases[caseEchec.getX() + 1][caseEchec.getY() + 1]));
-                    }
-                    if (Plateau.cases[caseEchec.getX() - 1][caseEchec.getY() + 1].getPiece() != null &&
-                            Plateau.cases[caseEchec.getX() - 1][caseEchec.getY() + 1]
-                                    .getPiece().couleur == TypeCouleur.Couleur.Noir) {
-                        coupsValides.add(new Coups(Plateau.cases[caseEchec.getX() - 1][caseEchec.getY() + 1]));
-                    }
-                } else {
-                    // Les noirs
-                    if (Plateau.cases[caseEchec.getX() + 1][caseEchec.getY() - 1].getPiece() != null &&
-                            Plateau.cases[caseEchec.getX() + 1][caseEchec.getY() - 1]
-                                    .getPiece().couleur == TypeCouleur.Couleur.Blanc) {
-                        coupsValides.add(new Coups(Plateau.cases[caseEchec.getX() + 1][caseEchec.getY() - 1]));
-                    }
-                    if (Plateau.cases[caseEchec.getX() - 1][caseEchec.getY() - 1].getPiece() != null &&
-                            Plateau.cases[caseEchec.getX() - 1][caseEchec.getY() - 1]
-                                    .getPiece().couleur == TypeCouleur.Couleur.Blanc) {
-                        coupsValides.add(new Coups(Plateau.cases[caseEchec.getX() - 1][caseEchec.getY() - 1]));
+                int directionPion = this.caseEchec.getPiece().getCouleur() == Jeu.joueurs[0].getCouleur() ? -1 : 1;
+                // Mouvement d'une case en avant si elle n'est pas occupée
+                x = this.caseEchec.getX() + directionPion;
+                y = this.caseEchec.getY();
+                if (x >= 0 && x < 8) {
+                    CaseEchec caseEnAvant = Plateau.cases[x][y];
+                    if (!caseEnAvant.estOccupee()) {
+                        coupsValides.add(new Coups(caseEnAvant));
+                        // Mouvement initial de deux cases
+                        if ((directionPion == -1 && this.caseEchec.getX() == 6) || (directionPion == 1 && this.caseEchec.getX() == 1)) {
+                            CaseEchec caseDeuxAvant = Plateau.cases[x + directionPion][y];
+                            if (!caseDeuxAvant.estOccupee()) {
+                                coupsValides.add(new Coups(caseDeuxAvant));
+                            }
+                        }
                     }
                 }
+                // Captures diagonales
+                int[] dx = {-1, 1};
+                for (int d : dx) {
+                    int nx = x;
+                    int ny = y + d;
+                    if (nx >= 0 && nx < 8 && ny >= 0 && ny < 8) {
+                        CaseEchec caseCapture = Plateau.cases[nx][ny];
+                        if (caseCapture.estOccupee() && caseCapture.getPiece().getCouleur() != this.caseEchec.getPiece().getCouleur()) {
+                            coupsValides.add(new Coups(caseCapture));
+                        }
+                    }
+                }
+    break;
 
-                break;
             case Tour:
                 // Peut avancer en ligne droite si elle n'est pas bloqué par l'ennemi.
 
                 // Directions: haut, bas, gauche, droite
-                int[][] directions = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
-                for (int[] direction : directions) {
-                    int x = this.caseEchec.getX();
-                    int y = this.caseEchec.getY();
+                int[][] directionsTour = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
+                for (int[] direction : directionsTour) {
+                     x = this.caseEchec.getX();
+                     y = this.caseEchec.getY();
 
                     while (true) {
                         x += direction[0];
@@ -113,13 +90,13 @@ public class Coups {
             case Fou:
                 // Directions diagonales : haut gauche, haut droit, bas gauche, bas droit
                 int[][] directionsDiagonales = { { -1, -1 }, { -1, 1 }, { 1, -1 }, { 1, 1 } };
-                for (int[] direction : directionsDiagonales) {
-                    int x = this.caseEchec.getX();
-                    int y = this.caseEchec.getY();
+                for (int[] directionFou : directionsDiagonales) {
+                    x = this.caseEchec.getX();
+                    y = this.caseEchec.getY();
 
                     while (true) {
-                        x += direction[0];
-                        y += direction[1];
+                        x += directionFou[0];
+                        y += directionFou[1];
 
                         // Vérifier si la nouvelle position est sur le plateau
                         if (x < 0 || x >= 8 || y < 0 || y >= 8)
@@ -152,8 +129,8 @@ public class Coups {
                         { 1, 2 } };
 
                 for (int[] mouvement : mouvements) {
-                    int x = this.caseEchec.getX() + mouvement[0];
-                    int y = this.caseEchec.getY() + mouvement[1];
+                    x = this.caseEchec.getX() + mouvement[0];
+                    y = this.caseEchec.getY() + mouvement[1];
 
                     // Vérifier si la nouvelle position est sur le plateau
                     if (x >= 0 && x < 8 && y >= 0 && y < 8) {
@@ -176,8 +153,8 @@ public class Coups {
                                                                                      // horizontales
                         , { -1, -1 }, { -1, 1 }, { 1, -1 }, { 1, 1 } }; // les 4 directions diagonales
                 for (int[] direction : directionsreine) {
-                    int x = this.caseEchec.getX();
-                    int y = this.caseEchec.getY();
+                    x = this.caseEchec.getX();
+                    y = this.caseEchec.getY();
 
                     while (true) {
                         x += direction[0];
@@ -207,14 +184,14 @@ public class Coups {
 
                 // Directions pour les déplacements : horizontalement, verticalement, et en
                 // diagonale
-                int[][] directionsroi = {
+                int[][] directionsRoi = {
                         { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 }, // Horizontalement et verticalement
                         { -1, -1 }, { -1, 1 }, { 1, -1 }, { 1, 1 } // En diagonale
                 };
 
-                for (int[] direction : directionsroi) {
-                    int x = this.caseEchec.getX() + direction[0];
-                    int y = this.caseEchec.getY() + direction[1];
+                for (int[] direction : directionsRoi) {
+                    x = this.caseEchec.getX() + direction[0];
+                    y = this.caseEchec.getY() + direction[1];
 
                     // Vérifier si la nouvelle position est sur le plateau
                     if (x >= 0 && x < 8 && y >= 0 && y < 8) {

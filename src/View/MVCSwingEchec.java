@@ -1,9 +1,6 @@
 package View;
 import Model.Jeu;
 import Controller.JeuController;
-import javax.swing.JFrame;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 
 public class MVCSwingEchec {

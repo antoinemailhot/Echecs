@@ -36,8 +36,7 @@ public class FenetreNomsJoueurs extends JFrame {
                 // Mettre a jour les noms des joueurs
                 Jeu.joueurs[0].setNom(player1TextField.getText());
                 Jeu.joueurs[1].setNom(player2TextField.getText());
-                //jeuView.repaint();
-                JeuView.updateBoard();
+                
                 // Fermer la fenêtre
                 dispose();
             }
