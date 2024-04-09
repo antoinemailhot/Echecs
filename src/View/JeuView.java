@@ -33,6 +33,7 @@ package View;
 import Model.Joueur;
 import Model.Plateau;
 import Model.CaseEchec;
+import Model.Coups;
 import Model.Piece;
 import Model.Jeu;
 import Model.TypeCouleur.Couleur;
@@ -43,6 +44,7 @@ import Controller.JeuController;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class JeuView extends JFrame {
     private Plateau plateau;
@@ -50,10 +52,12 @@ public class JeuView extends JFrame {
     public  static JButton[][] buttonGrid = new JButton[8][8]; // Tableau pour stocker les références des boutons
     private boolean estVisible = false;
     private CaseEchec caseSelectionnee = null;
+    private ArrayList<CaseEchec> listeCasesPossible;
     
     public JeuView() {
         InitialiseJeuView();
         this.plateau = new Plateau();
+        this.listeCasesPossible = new ArrayList<CaseEchec>();
     }
 
     private void InitialiseJeuView() {
@@ -227,25 +231,34 @@ public class JeuView extends JFrame {
                 JButton caseCliqueButton = (JButton) e.getSource(); // Récupère le bouton qui a déclenché l'événement
                 
                 CaseEchec caseEchec = obtenirCaseEchecParButton(caseCliqueButton);
-                if (caseEchec.getPiece() != null) {
+                if (caseEchec.getPiece() != null && caseSelectionnee == null) {
                     // Première sélection : la pièce à déplacer
                     caseSelectionnee = caseEchec;
-                    mouvementsPossibles = controller.obtenirMouvementsPossibles(caseEchec);
-                    highlightMouvementsPossibles(mouvementsPossibles);
+                    for(Coups c: caseEchec.getPiece().getCoups()) {
+                        listeCasesPossible.add(c.getCaseEchec());
+                    }
+
+                    highlightMouvementsPossibles();
+                    
                 } else {
                     // Deuxième sélection : la destination
-                    if (mouvementsPossibles.contains(caseEchec)) {
-                        controller.deplacerPiece(caseSelectionnee, caseEchec);
+
+                    if (listeCasesPossible.contains(caseEchec)) {
+                        caseEchec.placerPiece(caseSelectionnee.getPiece());
+                        caseSelectionnee.placerPiece(null);
                         clearHighlights();
-                        caseSelectionnee = null;
-                        mouvementsPossibles = null;
+                        
+                        listeCasesPossible.clear();
                     } else {
                         // Si le clic n'est pas valide, réinitialisez la sélection ou affichez un message
                         clearHighlights();
                         caseSelectionnee = null;
-                        mouvementsPossibles = null;
+                        listeCasesPossible = null;
                         // Optionnel : Afficher un message d'erreur ou un signal visuel
                     }
+
+                    
+
                 }
                 updateBoard();  // Mettez à jour la vue pour refléter les nouveaux états des cases
             }
@@ -266,6 +279,29 @@ public class JeuView extends JFrame {
         }
 
         return null;
+    }
+    public void highlightMouvementsPossibles(){
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (listeCasesPossible.contains(Plateau.cases[i][j])) {
+                    buttonGrid[i][j].setBackground(Color.GREEN);
+                }
+            }
+        }
+    }
+
+    public void clearHighlights() {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if ((i + j) % 2 == 0) {
+                    buttonGrid[i][j].setBackground(Color.LIGHT_GRAY);
+                } else {
+                    buttonGrid[i][j].setBackground(Color.DARK_GRAY);
+                }
+            }
+        }
+       
     }
 }
 
