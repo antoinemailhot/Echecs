@@ -6,13 +6,13 @@ public class Jeu {
 
     // Les attributs :
     private Plateau plateau;
-    private ArrayList<Tours> tours;
+    public static ArrayList<Tours> tours;
     public static Joueur[] joueurs;
 
     // Le constructeur par défaut.
     public Jeu() {
         this.plateau = new Plateau();
-        this.tours = new ArrayList<Tours>();
+        Jeu.tours = new ArrayList<Tours>();
         creerPartie();
         joueurs = new Joueur[2];
         joueurs[0] = new Joueur("joueur 1",TypeCouleur.Couleur.Blanc);

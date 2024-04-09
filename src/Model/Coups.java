@@ -213,10 +213,11 @@ public class Coups {
 
                         // Vérifier si la case est occupée par une pièce alliée
                         if (!caseDestination.estOccupee() || !caseDestination.getPiece().getCouleur()
-                                .equals(this.caseEchec.getPiece().getCouleur()) || !estEchec(this.caseEchec.getPiece().getCouleur())) {
-
+                                .equals(this.caseEchec.getPiece().getCouleur())) {
+                           
                             coupsValides.add(new Coups(caseDestination));
                         }
+                        
                     }
                 }
                 break;
@@ -234,36 +235,38 @@ public class Coups {
     public boolean estEchec(TypeCouleur.Couleur couleurRoi) {
         // Si il y a au moins 1 case dangereuse pour le roi.
         Boolean echec = false;
-       CaseEchec positionroi = trouverPositionRoi(couleurRoi);
-       ArrayList<Coups> coupsPossibles  = new ArrayList<Coups>();
-       for (int i=0 ; i < 8; i++){
-        for (int j=0; j < 8; j++){
+        CaseEchec positionroi = trouverPositionRoi(couleurRoi);
+        ArrayList<Coups> coupsPossibles = new ArrayList<Coups>();
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
 
-            Piece piece = Plateau.cases[j][i].getPiece();
+                Piece piece = Plateau.cases[i][j].getPiece();
 
-            if (piece != null && !piece.getCouleur().equals(couleurRoi)) {
+                if (piece != null && piece.getCouleur() != couleurRoi) {
 
-                coupsPossibles = piece.getCoups() ;
+                    coupsPossibles = piece.getCoups();
+                    for (Coups coup : coupsPossibles) {
+                        if (coup.getCaseEchec().equals(positionroi)) {
+                            echec = true; // Le roi est en échec
+                        }
 
-                
+                    }
+
+                }
+
             }
 
+            for (Coups coup : coupsPossibles) {
+                if (coup.getCaseEchec().equals(positionroi)) {
+                    echec = true; // Le roi est en échec
+                }
 
-           
+            }
 
-
-
-        }
+            
+        } // Le roi n'est pas en échec
+        return echec;
     }
-    for (Coups coup : coupsPossibles) {
-        if (coup.getCaseEchec().equals(positionroi)) {
-            echec = true; // Le roi est en échec
-        }
-        
-    }
-
-    return echec; // Le roi n'est pas en échec
-   } 
        
         
     
@@ -332,7 +335,7 @@ public class Coups {
         for (int i=0 ; i < 8; i++){
             for (int j=0; j < 8; j++){
 
-                Piece piece = Plateau.cases[i][j].getPiece();
+                Piece piece = Plateau.cases[j][i].getPiece();
 
                 if (piece != null && !piece.getCouleur().equals(couleurRoi)) {
 

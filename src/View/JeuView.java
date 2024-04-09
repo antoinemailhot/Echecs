@@ -1,9 +1,11 @@
 package View;
 import Model.Plateau;
+import Model.Tours;
 import Model.TypePiece;
 import Model.CaseEchec;
 import Model.Coups;
 import Model.Jeu;
+import Model.Joueur;
 import Model.Pion;
 
 import javax.swing.*;
@@ -21,11 +23,13 @@ public class JeuView extends JFrame {
     private boolean estVisible = false;
     private CaseEchec caseSelectionnee = null;
     private ArrayList<CaseEchec> listeCasesPossible;
+    private Joueur joueurActuel;
     
     public JeuView() {
         InitialiseJeuView();
         this.plateau = new Plateau();
         this.listeCasesPossible = new ArrayList<CaseEchec>();
+        this.joueurActuel = Jeu.joueurs[0]; // Mets le joueurs blanc au commencement.
     }
 
     private void InitialiseJeuView() {
@@ -64,6 +68,11 @@ public class JeuView extends JFrame {
        
 
         // Création du label pour afficher les scores
+        if(joueurActuel == Jeu.joueurs[0]){
+            scoreLabel = new JLabel("->" + Jeu.joueurs[0].getNom() + " " + Jeu.joueurs[0].getVictoires() + " : " + Jeu.joueurs[1].getNom() + " : " + Jeu.joueurs[1].getVictoires()); 
+        } else { 
+            scoreLabel = new JLabel(Jeu.joueurs[0].getNom() + " " + Jeu.joueurs[0].getVictoires() + " : " + "->" + Jeu.joueurs[1].getNom() + " : " + Jeu.joueurs[1].getVictoires()); 
+        }
         scoreLabel = new JLabel(Jeu.joueurs[0].getNom() + " " + Jeu.joueurs[0].getVictoires() + " : " + Jeu.joueurs[1].getNom() + " : " + Jeu.joueurs[1].getVictoires());
         scoreLabel.setHorizontalAlignment(JLabel.CENTER);
 
@@ -75,7 +84,11 @@ public class JeuView extends JFrame {
     }
 
     public void miseAJourScore() {
-        scoreLabel.setText(Jeu.joueurs[0].getNom() + " " + Jeu.joueurs[0].getVictoires() + " : " + Jeu.joueurs[1].getNom() + " : " + Jeu.joueurs[1].getVictoires());
+        if(joueurActuel == Jeu.joueurs[0]){
+            scoreLabel.setText("->" + Jeu.joueurs[0].getNom() + " " + Jeu.joueurs[0].getVictoires() + " : " + Jeu.joueurs[1].getNom() + " : " + Jeu.joueurs[1].getVictoires()); 
+        } else { 
+            scoreLabel.setText(Jeu.joueurs[0].getNom() + " " + Jeu.joueurs[0].getVictoires() + " : " + "->" + Jeu.joueurs[1].getNom() + " : " + Jeu.joueurs[1].getVictoires()); 
+        }
         this.repaint();
     }
 
@@ -91,6 +104,7 @@ public class JeuView extends JFrame {
                 updateButtonBackground(bouton, i, j);
             }
         }
+        miseAJourScore();
         repaint();
         revalidate();
     }
@@ -137,7 +151,8 @@ private void updateButtonIcon(JButton bouton, CaseEchec caseEchec) {
                 JButton caseCliqueButton = (JButton) e.getSource(); // Récupère le bouton qui a déclenché l'événement
                 
                 CaseEchec caseEchec = obtenirCaseEchecParButton(caseCliqueButton);
-                if (caseEchec.getPiece() != null && caseSelectionnee == null) {
+                
+                if (caseEchec.getPiece() != null && caseSelectionnee == null && caseEchec.getPiece().getCouleur() == joueurActuel.getCouleur()) {
                     // Première sélection : la pièce à déplacer
 
                     caseSelectionnee = caseEchec;
@@ -151,6 +166,11 @@ private void updateButtonIcon(JButton bouton, CaseEchec caseEchec) {
 
                     if (listeCasesPossible.contains(caseEchec)) {
                         caseSelectionnee.deplacerPiece(caseEchec);
+                        Tours t = new Tours(joueurActuel, Plateau.cases);
+                        Jeu.tours.add(t);
+                        joueurActuel = (joueurActuel == Jeu.joueurs[0]) ? Jeu.joueurs[1] : Jeu.joueurs[0];
+                        }
+                        
                        if(caseEchec.getPiece().getType() == TypePiece.Piece.Pion) {
                             Pion pion = (Pion)caseEchec.getPiece();
                             pion.promotion(); 
@@ -160,21 +180,28 @@ private void updateButtonIcon(JButton bouton, CaseEchec caseEchec) {
                         
                         updateBoard();
                         
-                    }
-
-                    caseSelectionnee = null;
                     
+
+                    
+                    caseSelectionnee = null;
+
                     listeCasesPossible = new ArrayList<CaseEchec>();
+                    // Mettez à jour la vue pour refléter les nouveaux états des cases
                     revalidate();
                     repaint(); 
-
+                    
                 }
-                updateBoard();  // Mettez à jour la vue pour refléter les nouveaux états des cases
-            }
-        });
-    
-        return button;
+                updateBoard();
+             }
+      });
+        
+            return button;
     }
+        
+    
+        
+    
+
 
     /**
      * Retourne la caseEchec correcpondant a la place du bouton.
