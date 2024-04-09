@@ -13,12 +13,14 @@ public class CaseEchec extends Position {
     }
 
     /**
-     * Prends une couleur.
+     * Prends une couleur qui n'est pas null.
      * 
      * @param couleur La couleur de la case.
      */
     public void setCouleur(Enum<TypeCouleur.Couleur> couleur) {
-        this.couleur = couleur;
+        if(couleur != null) {
+            this.couleur = couleur;
+        }
     }
 
     /**
@@ -38,6 +40,14 @@ public class CaseEchec extends Position {
         /*if (piece != null) {
             piece.setCase(this); // Met à jour la position de la pièce
         }*/
+    }
+
+    /*
+    * Déplace la pièce vers la nouvelle case.
+    */
+    public void deplacerPiece(CaseEchec caseEchec) {
+        caseEchec.piece = this.piece;
+        this.piece = null;
     }
 
     /**

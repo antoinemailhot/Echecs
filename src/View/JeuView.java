@@ -246,8 +246,7 @@ public class JeuView extends JFrame {
                     // Deuxième sélection : la destination
 
                     if (listeCasesPossible.contains(caseEchec)) {
-                        caseEchec.placerPiece(caseSelectionnee.getPiece());
-                        caseSelectionnee.placerPiece(null);
+                        caseSelectionnee.deplacerPiece(caseEchec);
                         updateBoard();
                     }
 
