@@ -8,7 +8,7 @@
         // Constructeur.
         public Tours(Joueur joueur, CaseEchec[][]cases) {
             this.joueurActuel = joueur;
-            //this.cases = Arrays.stream(Plateau.cases).map(CaseEchec::clone).toArray(CaseEchec::new);
+            
             this.cases = Arrays.copyOf(Plateau.cases, Plateau.cases.length);
         }
        

@@ -30,7 +30,7 @@ public class Coups {
         switch (typepiece) {
             case Pion:
     // Déterminer la direction du mouvement du pion basé sur sa couleur
-    int directionPion = this.caseEchec.getPiece().getCouleur() == Jeu.joueurs[0].getCouleur() ? 1 : -1;  // Supposons que Jeu.joueurs[0] est le joueur avec les blancs en bas
+    int directionPion = this.caseEchec.getPiece().getCouleur() == Jeu.joueurs[0].getCouleur() ? 1 : -1;  // Blanc va vers le haut, Noir va vers le bas
 
     x = this.caseEchec.getX();  // Colonne
     y = this.caseEchec.getY() + directionPion;  // Ligne, déplacement vertical
@@ -58,7 +58,7 @@ public class Coups {
     int[] dx = {-1, 1};  // Capture à gauche et à droite
     for (int d : dx) {
         int nx = x + d;
-        int ny = y;  // Utilisez 'y' déjà calculé pour la hauteur de la rangée
+        int ny = y;  
         if (nx >= 0 && nx < 8 && ny >= 0 && ny < 8) {
             CaseEchec caseCapture = Plateau.cases[ny][nx];
             if (caseCapture.estOccupee() && caseCapture.getPiece().getCouleur() != this.caseEchec.getPiece().getCouleur()) {

@@ -63,7 +63,7 @@ public class Plateau {
         }
 
         for (int i = 0; i < 8; i++) {
-            //pieces[extremiteEquipe][index++] = new Pion(cases[1][i], Couleur.Blanc, Direction.Direction_Origin_Blanc);
+            
             cases[rangeePions][i].placerPiece(new Pion(couleur, direction));
             
             }

@@ -31,7 +31,9 @@ public class JeuView extends JFrame {
         this.listeCasesPossible = new ArrayList<CaseEchec>();
         this.joueurActuel = Jeu.joueurs[0]; // Mets le joueurs blanc au commencement.
     }
-
+/**
+ * Initialise le jeu.
+ */
     private void InitialiseJeuView() {
         setTitle("Jeu d'échecs");
         setSize(800, 800); // Taille de la fenêtre
@@ -92,7 +94,9 @@ public class JeuView extends JFrame {
         this.repaint();
     }
 
-
+/* 
+ * Met à jour l'affichage du plateau 
+ */
 
     public void updateBoard() {
         for (int i = 0; i < 8; i++) {
@@ -109,11 +113,16 @@ public class JeuView extends JFrame {
         revalidate();
     }
     
-
+/**
+ * Met à jour l'icône d'une case
+ * @param bouton
+ * @param caseEchec
+ */
 private void updateButtonIcon(JButton bouton, CaseEchec caseEchec) {
     if (caseEchec.estOccupee()) {
         
-        // Building the path using File.separator to ensure compatibility across OSes
+        // Obtient le chemin de l'image de la pièce
+        	
         String iconName = caseEchec.getPiece().toStringComplet() + ".png";
         String imagePath = "src" + File.separator + "View" + File.separator + "img" + File.separator + iconName;
         ImageIcon icon = new ImageIcon(imagePath);
@@ -121,12 +130,17 @@ private void updateButtonIcon(JButton bouton, CaseEchec caseEchec) {
         bouton.setIcon(icon);
        // System.out.println(imagePath);
     } else {
-        bouton.setIcon(null); // Clears the icon if the square is unoccupied
-        bouton.setText(""); // Optionally clear any text
+        bouton.setIcon(null);  // Supprime l'icône
+        bouton.setText("");    // Supprime le texte
 
     }
 }
-
+/**
+ * Met à jour la couleur de fond en fonction du joueur ou d'une sélection
+ * @param bouton
+ * @param row
+ * @param col
+ */
     private void updateButtonBackground(JButton bouton, int row, int col) {
         if (caseSelectionnee == null) {
             clearHighlights();
@@ -139,14 +153,13 @@ private void updateButtonIcon(JButton bouton, CaseEchec caseEchec) {
     
 
   
+    /**
+     * Création d'un bouton pour une case
+     */
     private JButton createButtonForCase(CaseEchec caseEchec, int i, int j) {
         JButton button = new JButton();
         button.addActionListener(new ActionListener() {
-            /**
-             * Va chercher la première case selectionner qui a une Piece.
-             * Va chercher ses coups possible avec getCoupsValides et highligh les possibilités.
-             * Va positioner la pièce a l'endroit selectionner.
-             */
+            
             public void actionPerformed(ActionEvent e) {
                 JButton caseCliqueButton = (JButton) e.getSource(); // Récupère le bouton qui a déclenché l'événement
                 
@@ -218,7 +231,9 @@ private void updateButtonIcon(JButton bouton, CaseEchec caseEchec) {
         return null;
     }
 
-       
+       /** 
+        * change les couleur des cases possibles en vert
+        */
 
     public void highlightMouvementsPossibles(){
 
@@ -231,6 +246,9 @@ private void updateButtonIcon(JButton bouton, CaseEchec caseEchec) {
         }
     }
 
+    /**
+     *  remet les cases a la couleur par defaut
+     */
     public void clearHighlights() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {

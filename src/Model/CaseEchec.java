@@ -37,9 +37,7 @@ public class CaseEchec extends Position {
      */
     public void placerPiece(Piece piece) {
         this.piece = piece;
-        /*if (piece != null) {
-            piece.setCase(this); // Met à jour la position de la pièce
-        }*/
+      
     }
 
     /*
